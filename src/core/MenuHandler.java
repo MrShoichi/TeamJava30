@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MenuHandler {
-    private Scanner scanner;
+    private final Scanner scanner;
     private List<Object> array;
     private Class<?> objectType;
-    private IFileHandler<Object> fileHandler; // интерфейс для работы с файлами
+    private final IFileHandler<Object> fileHandler; // интерфейс для работы с файлами
 
     public MenuHandler(IFileHandler<Object> fileHandler) {
         this.scanner = new Scanner(System.in);
@@ -26,13 +26,9 @@ public class MenuHandler {
 
     public void runMenu() {
         int choice;
-
         do {
-            
             showMenu();
-
             choice = scanner.nextInt();
-
             try {
                 switch (choice) {
                     case 1:
@@ -89,7 +85,7 @@ public class MenuHandler {
             throw new IllegalArgumentException("Некорректный выбор генератора.");
         }
 
-        array = Stream.generate(generator::generateRandomInstance)
+        array = Stream.generate(generator::generateInstanceWithRandomData)
                 .limit(size)
                 .collect(Collectors.toList());
         System.out.println("Массив заполнен: " + array);
@@ -104,7 +100,8 @@ public class MenuHandler {
             case 3 -> new AnimalGenerator();
             default -> {
                 System.out.println("Некорректный выбор.");
-                yield null;
+                selectGenerator();
+                // yield null;
             }
         };
     }
@@ -248,7 +245,9 @@ public class MenuHandler {
         }
 
         System.out.println("Введите атрибут объектов для сравнения: ");
+        // TODO сделать выбор компоратора(атрибута для сортировки)
         Comparator<Object> comparator = Comparator.comparing(Object::toString);
+
         sortingManager.sort(array, comparator);
         System.out.println("Отсортированный массив: " + array);
     }
