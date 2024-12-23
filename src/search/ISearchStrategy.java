@@ -4,5 +4,5 @@ import java.util.Comparator;
 import java.util.List;
 
 public interface ISearchStrategy<T> {
-    T search(List<T> instances, Comparator<T> comparator);
+    int search(List<T> instances, T target, Comparator<T> comparator);
 }

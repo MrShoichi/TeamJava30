@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BinarySearch<T> implements ISearchStrategy<T> {
     @Override
-    public T search(List<T> instances, Comparator<T> comparator) {
-        return null;
+    public int search(List<T> instances, T target, Comparator<T> comparator) {
+        return -1;
     }
 }
