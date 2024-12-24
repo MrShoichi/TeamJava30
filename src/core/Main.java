@@ -4,7 +4,7 @@ package core;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        MenuHandler menuHandler = new MenuHandler();
+        UserInterfaceManager menuHandler = new UserInterfaceManager();
         menuHandler.runMenu();
     }
 }
