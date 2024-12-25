@@ -1,28 +1,24 @@
 package utils;
 
 
-public class Messages {
+public final class Messages {
     public static final String EXIT_PROGRAM = "Выход из программы.";
     public static final String ERROR_INVALID_CHOICE = "Некорректный выбор. Попробуйте снова.";
     public static final String ERROR_EMPTY_ARRAY = "Массив пуст. Выполните заполнение перед этой операцией.";
-    public static final String ERROR_INVALID_CLASS = "Выбранный класс недопустим.";
     public static final String ERROR_INVALID_ARRAY_SIZE = "Размер массива должен быть больше нуля.";
 
     public static final String PROMPT_ARRAY_SIZE = "Введите размер массива: ";
     public static final String SUCCESS_ARRAY_SAVED = "Массив успешно сохранен в файл.";
     public static final String SUCCESS_ARRAY_LOADED = "Массив успешно загружен из файла.";
 
-    public static final String PROMPT_BARREL = "Добавление нового объекта типа Бочка:";
     public static final String PROMPT_VOLUME = "Введите объем: ";
     public static final String PROMPT_CONTENT = "Введите хранимый материал: ";
     public static final String PROMPT_MATERIAL = "Введите материал изготовления: ";
 
-    public static final String PROMPT_PERSON = "Добавление нового объекта типа Человек:";
     public static final String PROMPT_GENDER = "Введите пол (мужской/женский): ";
     public static final String PROMPT_AGE = "Введите возраст: ";
     public static final String PROMPT_LAST_NAME = "Введите фамилию: ";
 
-    public static final String PROMPT_ANIMAL = "Добавление нового объекта типа Животное:";
     public static final String PROMPT_SPECIES = "Введите вид: ";
     public static final String PROMPT_EYE_COLOR = "Введите цвет глаз: ";
     public static final String PROMPT_HAS_FUR = "Есть ли шерсть (да/нет)? ";
@@ -50,6 +46,13 @@ public class Messages {
             1. Сортировка вставками
             2. Сортировка четных/нечетных элементов
             Ваш выбор: """;
-    public static final String PROMPT_SORT_ATTRIBUTE = "Выберите атрибут для сортировки: ";
+
+    public static final String SORTING_ATTRIBUTE_MENU =
+            "Выберите атрибут для сортировки:\n" +
+            "1. По строковому представлению\n" +
+            "2. По числовому значению (например, объем или возраст)\n" +
+            "3. По строковому атрибуту (например, материал или фамилия)";
+
+
     public static final String PROMPT_ELEMENT_SEARCH = "Введите элемент для поиска: ";
 }

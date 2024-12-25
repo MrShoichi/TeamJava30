@@ -5,18 +5,18 @@ import java.util.Scanner;
 public class InputHandler {
     private final Scanner scanner;
 
-    public InputHandler(Scanner scanner) {
-        this.scanner = scanner;
+    public InputHandler() {
+        this.scanner = new Scanner(System.in);
     }
 
     public int safeIntInput(String prompt) {
         while (true) {
             System.out.print(prompt);
-            if (scanner.hasNextInt()) {
-                return scanner.nextInt();
-            } else {
+            String input = scanner.nextLine();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
                 System.out.println("Ошибка: введите целое число.");
-                scanner.next();
             }
         }
     }
@@ -24,28 +24,30 @@ public class InputHandler {
     public double safeDoubleInput(String prompt) {
         while (true) {
             System.out.print(prompt);
-            if (scanner.hasNextDouble()) {
-                return scanner.nextDouble();
-            } else {
+            String input = scanner.nextLine();
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
                 System.out.println("Ошибка: введите число.");
-                scanner.next();
             }
         }
     }
 
     public String safeStringInput(String prompt) {
         System.out.print(prompt);
-        return scanner.next();
+        return scanner.nextLine().trim();
     }
 
     public boolean safeBooleanInput(String prompt) {
         while (true) {
             System.out.print(prompt + " (true/false): ");
-            if (scanner.hasNextBoolean()) {
-                return scanner.nextBoolean();
+            String input = scanner.nextLine().trim().toLowerCase();
+            if (input.equals("true")) {
+                return true;
+            } else if (input.equals("false")) {
+                return false;
             } else {
                 System.out.println("Ошибка: введите true или false.");
-                scanner.next();
             }
         }
     }

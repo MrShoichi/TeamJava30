@@ -1,30 +1,25 @@
 package core;
 
+import factories.IObjectFactory;
 import managers.ArrayManager;
 import managers.FileManager;
 import managers.ObjectManager;
 import utils.InputHandler;
 import utils.Messages;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-public class UserInterfaceManager {
-    private final Scanner scanner;
+public class MenuHandler<T> {
     private final InputHandler inputValidator;
-    private final ObjectManager objectManager;
-    private final FileManager fileManager;
-    private final ArrayManager arrayManager;
-    private final List<Object> array;
+    private final ObjectManager<T> objectManager;
+    private final FileManager<T> fileManager;
+    private final ArrayManager<T> arrayManager;
+    private final IObjectFactory<T> objectFactory;
 
-    public UserInterfaceManager() {
-        this.scanner = new Scanner(System.in);
-        this.inputValidator = new InputHandler(scanner);
-        this.objectManager = new ObjectManager(inputValidator);
-        this.array = new ArrayList<>();
-        this.arrayManager = new ArrayManager(this.array, inputValidator);
-        this.fileManager = new FileManager(new FileHandler());
+    public MenuHandler(IObjectFactory<T> objectFactory) {
+        this.inputValidator = new InputHandler();
+        this.objectManager = new ObjectManager<>(inputValidator);
+        this.arrayManager = new ArrayManager<>(inputValidator);
+        this.fileManager = new FileManager<>(new FileHandler());
+        this.objectFactory = objectFactory;
     }
 
     public void runMenu() {
@@ -34,10 +29,10 @@ public class UserInterfaceManager {
             try {
                 switch (choice) {
                     case 1:
-                        objectManager.fillArray();
+                        fillArray();
                         break;
                     case 2:
-                        objectManager.addCustomObject();
+                        addCustomObject();
                         break;
                     case 3:
                         arrayManager.sortArray();
@@ -46,10 +41,10 @@ public class UserInterfaceManager {
                         arrayManager.searchInArray();
                         break;
                     case 5:
-                        fileManager.saveArrayToFile();
+                        fileManager.saveArrayToFile(arrayManager.getArray());
                         break;
                     case 6:
-                        fileManager.loadArrayFromFile();
+                        arrayManager.setArray(fileManager.loadArrayFromFile());
                         break;
                     case 7:
                         System.out.println(Messages.EXIT_PROGRAM);
@@ -64,6 +59,18 @@ public class UserInterfaceManager {
             }
 
         } while (choice != 7);
+    }
+
+    private void fillArray() {
+        arrayManager.setArray(objectManager.generateArrayObjects());
+        System.out.println("Массив заполнен: " + arrayManager.getArray());
+    }
+
+
+    private void addCustomObject() {
+        T newObject = objectFactory.create(inputValidator);
+        arrayManager.addInstance(newObject);
+        System.out.println("Объект добавлен: " + newObject);
     }
 
 
