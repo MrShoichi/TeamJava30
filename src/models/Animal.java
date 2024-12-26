@@ -20,6 +20,18 @@ public class Animal implements Comparable<Animal>{
         this.hasFur = builder.hasFur;
     }
 
+    public String getSpecies() {
+        return species;
+    }
+
+    public String getEyeColor() {
+        return eyeColor;
+    }
+
+    public boolean isHasFur() {
+        return hasFur;
+    }
+
     @Override
     public int compareTo(Animal other) {
         int result = this.species.compareTo(other.species);
