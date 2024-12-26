@@ -1,6 +1,9 @@
 package managers;
 
+import models.Animal;
 import search.BinarySearch;
+import sorting.EvenOddSort;
+import sorting.NormalSort;
 import utils.InputHandler;
 import utils.Messages;
 
@@ -8,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ArrayManager<T> {
+// Добавил extends Comparable<T>, считаем, что все объекты Comparable - "базово реализуют сортировку по всем полям
+// (не в отдельности, а по порядку)"
+public class ArrayManager<T extends Comparable<T>> {
     private List<T> array;
     private final InputHandler inputValidator;
 
@@ -25,11 +30,12 @@ public class ArrayManager<T> {
 
         SortingManager<T> sortingManager = new SortingManager<>();
         switch (sortChoice) {
+            // TODO: Enum для режимов, чтобы не путаться (но не обязательно)
             case 1:
-                sortingManager.setStrategy(new sorting.InsertionSort<>());
+                sortingManager.setStrategy(new NormalSort<T>());
                 break;
             case 2:
-                sortingManager.setStrategy(new sorting.EvenOddSort<>());
+                sortingManager.setStrategy(new EvenOddSort<T>());
                 break;
             default:
                 throw new IllegalArgumentException("Некорректный выбор сортировки.");

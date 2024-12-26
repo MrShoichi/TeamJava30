@@ -7,7 +7,9 @@ import managers.ObjectManager;
 import utils.InputHandler;
 import utils.Messages;
 
-public class MenuHandler<T> {
+// Добавил extends Comparable<T>, считаем, что все объекты Comparable - "базово реализуют сортировку по всем полям
+// (не в отдельности, а по порядку)"
+public class MenuHandler<T extends Comparable<T>> {
     private final InputHandler inputValidator;
     private final ObjectManager<T> objectManager;
     private final FileManager<T> fileManager;
