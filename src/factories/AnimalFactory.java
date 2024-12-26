@@ -1,5 +1,6 @@
 package factories;
 
+import models.Animal;
 import utils.InputHandler;
 import utils.Messages;
 

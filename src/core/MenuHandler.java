@@ -1,27 +1,36 @@
 package core;
 
+import factories.AnimalFactory;
+import factories.BarrelFactory;
 import factories.IObjectFactory;
 import managers.ArrayManager;
 import managers.FileManager;
 import managers.ObjectManager;
+import randomDataGenerators.AnimalGenerator;
+import randomDataGenerators.BarrelGenerator;
+import randomDataGenerators.PersonGenerator;
+import utils.Entities;
 import utils.InputHandler;
 import utils.Messages;
+import utils.UtilFunctions;
 
-// Добавил extends Comparable<T>, считаем, что все объекты Comparable - "базово реализуют сортировку по всем полям
-// (не в отдельности, а по порядку)"
 public class MenuHandler<T extends Comparable<T>> {
     private final InputHandler inputValidator;
     private final ObjectManager<T> objectManager;
-    private final FileManager<T> fileManager;
+    private final FileManager<T> fileManager = null;
     private final ArrayManager<T> arrayManager;
     private final IObjectFactory<T> objectFactory;
 
-    public MenuHandler(IObjectFactory<T> objectFactory) {
+    public MenuHandler(Entities entity) {
         this.inputValidator = new InputHandler();
-        this.objectManager = new ObjectManager<>(inputValidator);
+        this.objectManager = new ObjectManager<>(inputValidator, entity);
         this.arrayManager = new ArrayManager<>(inputValidator);
-        this.fileManager = new FileManager<>(new FileHandler());
-        this.objectFactory = objectFactory;
+        //this.fileManager = new FileManager<>(new FileHandler());
+        this.objectFactory = (IObjectFactory<T>) switch (entity) {
+            case Entities.BARREL ->  new BarrelFactory();
+            case Entities.ANIMAL -> new AnimalFactory();
+            case Entities.PERSON -> new PersonGenerator();
+        };;
     }
 
     public void runMenu() {
@@ -65,7 +74,7 @@ public class MenuHandler<T extends Comparable<T>> {
 
     private void fillArray() {
         arrayManager.setArray(objectManager.generateArrayObjects());
-        System.out.println("Массив заполнен: " + arrayManager.getArray());
+        System.out.println("Массив заполнен: " + UtilFunctions.getArrayString(arrayManager.getArray()));
     }
 
 
@@ -74,7 +83,5 @@ public class MenuHandler<T extends Comparable<T>> {
         arrayManager.addInstance(newObject);
         System.out.println("Объект добавлен: " + newObject);
     }
-
-
 
 }

@@ -17,7 +17,7 @@ public final class Messages {
 
     public static final String PROMPT_GENDER = "Введите пол (мужской/женский): ";
     public static final String PROMPT_AGE = "Введите возраст: ";
-    public static final String PROMPT_LAST_NAME = "Введите фамилию: ";
+    public static final String PROMPT_FULL_NAME = "Введите Полное имя: ";
 
     public static final String PROMPT_SPECIES = "Введите вид: ";
     public static final String PROMPT_EYE_COLOR = "Введите цвет глаз: ";

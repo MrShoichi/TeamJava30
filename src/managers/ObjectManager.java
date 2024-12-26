@@ -1,8 +1,15 @@
 package managers;
 
-import factories.IObjectFactory;
+import core.MenuHandler;
+import factories.AnimalFactory;
+import factories.BarrelFactory;
+import factories.PersonFactory;
+import models.Barrel;
+import randomDataGenerators.AnimalGenerator;
+import randomDataGenerators.BarrelGenerator;
 import randomDataGenerators.IGenerator;
-import utils.Constants;
+import randomDataGenerators.PersonGenerator;
+import utils.Entities;
 import utils.InputHandler;
 import utils.Messages;
 
@@ -12,8 +19,14 @@ import java.util.stream.Stream;
 
 public class ObjectManager<T> {
     private final InputHandler inputHandler;
-    public ObjectManager(InputHandler inputValidator) {
+    IGenerator<T> generator;
+    public ObjectManager(InputHandler inputValidator, Entities entity) {
         this.inputHandler = inputValidator;
+        generator = (IGenerator<T>) switch (entity) {
+            case Entities.BARREL -> new BarrelGenerator();
+            case Entities.ANIMAL -> new AnimalGenerator();
+            case Entities.PERSON -> new PersonGenerator();
+        };
     }
 
     public List<T> generateArrayObjects() {
@@ -21,7 +34,6 @@ public class ObjectManager<T> {
         if (size <= 0) {
             throw new IllegalArgumentException(Messages.ERROR_INVALID_ARRAY_SIZE);
         }
-        IGenerator<T> generator = selectGenerator();
         if (generator == null) {
             throw new IllegalArgumentException(Messages.ERROR_INVALID_CHOICE);
         }
@@ -31,13 +43,4 @@ public class ObjectManager<T> {
                 .collect(Collectors.toList());
     }
 
-    private IGenerator<T> selectGenerator() {
-        int choice = inputHandler.safeMenuChoice(Messages.CLASS_SELECTION_MENU, 1, 3);
-        return switch (choice) {
-            case 1 -> new BarrelGenerator();
-            case 2 -> new PersonGenerator();
-            case 3 -> new AnimalGenerator();
-            default -> null;
-        };
-    }
 }

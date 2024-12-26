@@ -3,6 +3,9 @@ package core;
 import factories.AnimalFactory;
 import factories.BarrelFactory;
 import factories.PersonFactory;
+import models.Animal;
+import models.Barrel;
+import utils.Entities;
 import utils.InputHandler;
 import utils.Messages;
 
@@ -12,20 +15,16 @@ public class Main {
     public static void main(String[] args) {
         InputHandler inputHandler = new InputHandler();
         int choice = inputHandler.safeMenuChoice(Messages.CLASS_SELECTION_MENU, 1, 3);
-        Class<?> selectedClass = getObjectClassFromChoice(choice);
-        var menuHandler= switch (selectedClass) {
-            case Barrel.class -> new MenuHandler<Barrel>(new BarrelFactory());
-            case Person.class -> new MenuHandler<Person>(new PersonFactory());
-            case Animal.class -> new MenuHandler<Animal>(new AnimalFactory());
-        };
-        menuHandler.runMenu();
+        var entity = getObjectClassFromChoice(choice);
+        new MenuHandler<>(entity).runMenu();
     }
 
-    private static Class<?> getObjectClassFromChoice(int choice) {
+    private static Entities getObjectClassFromChoice(int choice) {
         return switch (choice) {
-            case 1 -> Barrel.class;
-            case 2 -> Person.class;
-            case 3 -> Animal.class;
+            case 1 -> Entities.BARREL;
+            case 2 -> Entities.PERSON;
+            case 3 -> Entities.ANIMAL;
+            default -> throw new IllegalStateException("Unexpected value: " + choice);
         };
     }
 

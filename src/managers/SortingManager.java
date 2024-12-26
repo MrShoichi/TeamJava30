@@ -16,8 +16,7 @@ public class SortingManager<T> {
         this.sortingStrategy = sortingStrategy;
     }
 
-    // Не использую SelectComparator, зачем сортировка по каждому полю класса отдельно?
-    public void sort(List<T> array, Comparator<T> comparator) {
+    public void sort(List<T> array) {
         if (sortingStrategy != null) {
             sortingStrategy.sort(array);
         } else {
