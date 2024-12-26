@@ -1,32 +1,21 @@
 package managers;
 
-import core.MenuHandler;
-import factories.AnimalFactory;
-import factories.BarrelFactory;
-import factories.PersonFactory;
-import models.Barrel;
-import randomDataGenerators.AnimalGenerator;
-import randomDataGenerators.BarrelGenerator;
+import core.InputHandler;
 import randomDataGenerators.IGenerator;
-import randomDataGenerators.PersonGenerator;
 import utils.Entities;
-import utils.InputHandler;
 import utils.Messages;
+import utils.UtilFunctions;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ObjectManager<T> {
+public class ObjectManager<T extends Comparable<T>> {
     private final InputHandler inputHandler;
-    IGenerator<T> generator;
+    private final IGenerator<T> generator;
     public ObjectManager(InputHandler inputValidator, Entities entity) {
         this.inputHandler = inputValidator;
-        generator = (IGenerator<T>) switch (entity) {
-            case Entities.BARREL -> new BarrelGenerator();
-            case Entities.ANIMAL -> new AnimalGenerator();
-            case Entities.PERSON -> new PersonGenerator();
-        };
+        generator = UtilFunctions.getObjectGenerator(entity);
     }
 
     public List<T> generateArrayObjects() {

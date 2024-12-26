@@ -1,7 +1,7 @@
 package factories;
 
+import core.InputHandler;
 import models.Person;
-import utils.InputHandler;
 import utils.Messages;
 
 public class PersonFactory implements IObjectFactory<Person> {

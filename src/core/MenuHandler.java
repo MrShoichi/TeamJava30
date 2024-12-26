@@ -1,16 +1,10 @@
 package core;
 
-import factories.AnimalFactory;
-import factories.BarrelFactory;
 import factories.IObjectFactory;
 import managers.ArrayManager;
 import managers.FileManager;
 import managers.ObjectManager;
-import randomDataGenerators.AnimalGenerator;
-import randomDataGenerators.BarrelGenerator;
-import randomDataGenerators.PersonGenerator;
 import utils.Entities;
-import utils.InputHandler;
 import utils.Messages;
 import utils.UtilFunctions;
 
@@ -26,17 +20,12 @@ public class MenuHandler<T extends Comparable<T>> {
         this.objectManager = new ObjectManager<>(inputValidator, entity);
         this.arrayManager = new ArrayManager<>(inputValidator);
         //this.fileManager = new FileManager<>(new FileHandler());
-        this.objectFactory = (IObjectFactory<T>) switch (entity) {
-            case Entities.BARREL ->  new BarrelFactory();
-            case Entities.ANIMAL -> new AnimalFactory();
-            case Entities.PERSON -> new PersonGenerator();
-        };;
+        this.objectFactory = UtilFunctions.getObjectFactory(entity);
     }
 
     public void runMenu() {
-        int choice;
-        do {
-            choice = inputValidator.safeMenuChoice(Messages.MAIN_MENU, 1, 7);
+        while (true) {
+            var choice = inputValidator.safeMenuChoice(Messages.MAIN_MENU, 1, 8);
             try {
                 switch (choice) {
                     case 1:
@@ -58,8 +47,11 @@ public class MenuHandler<T extends Comparable<T>> {
                         arrayManager.setArray(fileManager.loadArrayFromFile());
                         break;
                     case 7:
-                        System.out.println(Messages.EXIT_PROGRAM);
+                        System.out.println(UtilFunctions.getArrayString(arrayManager.getArray()));
                         break;
+                    case 8:
+                        System.out.println(Messages.EXIT_PROGRAM);
+                        return;
                     default:
                         throw new IllegalArgumentException("Некорректный выбор. Попробуйте снова.");
                 }
@@ -68,8 +60,7 @@ public class MenuHandler<T extends Comparable<T>> {
             } catch (Exception e) {
                 System.out.println("Неизвестная ошибка: " + e.getMessage());
             }
-
-        } while (choice != 7);
+        }
     }
 
     private void fillArray() {

@@ -1,19 +1,16 @@
 package managers;
 
+import core.InputHandler;
 import models.Animal;
 import models.Barrel;
 import models.Person;
-import search.BinarySearch;
 import sorting.EvenOddSort;
 import sorting.NormalSort;
-import utils.InputHandler;
 import utils.Messages;
 import utils.UtilFunctions;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 public class ArrayManager<T extends Comparable<T>> {
     private List<T> array;

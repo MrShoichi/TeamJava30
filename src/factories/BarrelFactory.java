@@ -1,7 +1,7 @@
 package factories;
 
+import core.InputHandler;
 import models.Barrel;
-import utils.InputHandler;
 import utils.Messages;
 
 public class BarrelFactory implements IObjectFactory<Barrel> {
