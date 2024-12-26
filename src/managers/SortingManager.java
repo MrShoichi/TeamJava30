@@ -5,13 +5,23 @@ import sorting.ISortingStrategy;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Для паттерна "Стратегия".
+ * Позволяет задать стратегию сортировки и выполнить её на переданном списке.
+ */
 public class SortingManager<T> {
     private ISortingStrategy<T> sortingStrategy;
+
     public void setStrategy(ISortingStrategy<T> sortingStrategy) {
         this.sortingStrategy = sortingStrategy;
     }
 
+    // Не использую SelectComparator, зачем сортировка по каждому полю класса отдельно?
     public void sort(List<T> array, Comparator<T> comparator) {
-        sortingStrategy.sort(array, comparator);
+        if (sortingStrategy != null) {
+            sortingStrategy.sort(array);
+        } else {
+            throw new IllegalStateException("Стратегия сортировки не установлена");
+        }
     }
 }
