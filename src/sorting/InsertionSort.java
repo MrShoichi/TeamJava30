@@ -4,12 +4,12 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Реализация сортировки вставками.
+ * Реализация алгоритма сортировки вставками.
+ * Используется в классах-режимах сортировки.
  */
-public class InsertionSorting<T> implements ISortingStrategy<T>{
+public class InsertionSort<T>{
 
-    @Override
-    public void sort(List<T> instances, Comparator<T> comparator) {
+    public static<T> void sort(List<T> instances, Comparator<T> comparator) {
         if (instances == null || instances.isEmpty()) {
             return;
         }
