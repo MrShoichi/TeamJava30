@@ -1,21 +1,19 @@
 package utils;
 
-import factories.AnimalFactory;
-import factories.BarrelFactory;
-import factories.IObjectFactory;
-import factories.PersonFactory;
-
 import java.util.List;
-import java.util.Map;
 
 public final class Constants {
     public static class BarrelAttributes {
-        public static final List<String> materials = List.of("Дерево", "Алюминий", "Железо", "Сталь");
-        public static final List<String> storedMaterials = List.of("Вода", "Вино", "Пиво", "Ром");
+        public static final List<String> MATERIALS = List.of("Дерево", "Алюминий", "Железо", "Сталь");
+        public static final List<String> IN_MATERIALS = List.of("Вода", "Вино", "Пиво", "Ром");
     }
-    public enum Sex {
-        Male,
-        Female;
+    public static class AnimalAttributes {
+        public static final List<String> EYE_COLORS = List.of("Зеленый", "Голубой", "Карий", "Красный");
+        public static final List<String> SPECIES = List.of("Хищник", "Травоядное", "Водное");
+    }
+    public static class PersonAttributes {
+        public static final List<String> NAMES = List.of("Джон", "Алексей", "Юрий", "Влад");
+        public static final List<String> GENDER = List.of("Мужской", "Женский");
     }
 
 }

@@ -17,7 +17,7 @@ public final class Messages {
 
     public static final String PROMPT_GENDER = "Введите пол (мужской/женский): ";
     public static final String PROMPT_AGE = "Введите возраст: ";
-    public static final String PROMPT_LAST_NAME = "Введите фамилию: ";
+    public static final String PROMPT_FULL_NAME = "Введите Полное имя: ";
 
     public static final String PROMPT_SPECIES = "Введите вид: ";
     public static final String PROMPT_EYE_COLOR = "Введите цвет глаз: ";
@@ -31,27 +31,29 @@ public final class Messages {
             4. Поиск элемента в массиве
             5. Записать массив в файл
             6. Загрузить массив из файла
-            7. Выйти
-            Выберите действие: """;
+            7. Вывести массив на экран
+            8. Выйти
+            Выберите действие:\s""";
 
     public static final String CLASS_SELECTION_MENU = """
             Выберите тип объекта:
             1. Бочка
             2. Человек
             3. Животное
-            Ваш выбор: """;
+            Ваш выбор:\s""";
 
     public static final String SORTING_MENU = """
             Выберите метод сортировки:
             1. Сортировка вставками
             2. Сортировка четных/нечетных элементов
-            Ваш выбор: """;
+            Ваш выбор:\s""";
 
     public static final String SORTING_ATTRIBUTE_MENU =
-            "Выберите атрибут для сортировки:\n" +
-            "1. По строковому представлению\n" +
-            "2. По числовому значению (например, объем или возраст)\n" +
-            "3. По строковому атрибуту (например, материал или фамилия)";
+            """
+                    Выберите атрибут для сортировки:
+                    1. По строковому представлению
+                    2. По числовому значению (например, объем или возраст)
+                    3. По строковому атрибуту (например, материал или фамилия)""";
 
 
     public static final String PROMPT_ELEMENT_SEARCH = "Введите элемент для поиска: ";

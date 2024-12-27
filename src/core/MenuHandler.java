@@ -4,30 +4,28 @@ import factories.IObjectFactory;
 import managers.ArrayManager;
 import managers.FileManager;
 import managers.ObjectManager;
-import utils.InputHandler;
+import utils.Entities;
 import utils.Messages;
+import utils.UtilFunctions;
 
-// Добавил extends Comparable<T>, считаем, что все объекты Comparable - "базово реализуют сортировку по всем полям
-// (не в отдельности, а по порядку)"
 public class MenuHandler<T extends Comparable<T>> {
     private final InputHandler inputValidator;
     private final ObjectManager<T> objectManager;
-    private final FileManager<T> fileManager;
+    private final FileManager<T> fileManager = null;
     private final ArrayManager<T> arrayManager;
     private final IObjectFactory<T> objectFactory;
 
-    public MenuHandler(IObjectFactory<T> objectFactory) {
+    public MenuHandler(Entities entity) {
         this.inputValidator = new InputHandler();
-        this.objectManager = new ObjectManager<>(inputValidator);
+        this.objectManager = new ObjectManager<>(inputValidator, entity);
         this.arrayManager = new ArrayManager<>(inputValidator);
-        this.fileManager = new FileManager<>(new FileHandler());
-        this.objectFactory = objectFactory;
+        //this.fileManager = new FileManager<>(new FileHandler());
+        this.objectFactory = UtilFunctions.getObjectFactory(entity);
     }
 
     public void runMenu() {
-        int choice;
-        do {
-            choice = inputValidator.safeMenuChoice(Messages.MAIN_MENU, 1, 7);
+        while (true) {
+            var choice = inputValidator.safeMenuChoice(Messages.MAIN_MENU, 1, 8);
             try {
                 switch (choice) {
                     case 1:
@@ -49,8 +47,11 @@ public class MenuHandler<T extends Comparable<T>> {
                         arrayManager.setArray(fileManager.loadArrayFromFile());
                         break;
                     case 7:
-                        System.out.println(Messages.EXIT_PROGRAM);
+                        System.out.println(UtilFunctions.getArrayString(arrayManager.getArray()));
                         break;
+                    case 8:
+                        System.out.println(Messages.EXIT_PROGRAM);
+                        return;
                     default:
                         throw new IllegalArgumentException("Некорректный выбор. Попробуйте снова.");
                 }
@@ -59,13 +60,12 @@ public class MenuHandler<T extends Comparable<T>> {
             } catch (Exception e) {
                 System.out.println("Неизвестная ошибка: " + e.getMessage());
             }
-
-        } while (choice != 7);
+        }
     }
 
     private void fillArray() {
         arrayManager.setArray(objectManager.generateArrayObjects());
-        System.out.println("Массив заполнен: " + arrayManager.getArray());
+        System.out.println("Массив заполнен: " + UtilFunctions.getArrayString(arrayManager.getArray()));
     }
 
 
@@ -74,7 +74,5 @@ public class MenuHandler<T extends Comparable<T>> {
         arrayManager.addInstance(newObject);
         System.out.println("Объект добавлен: " + newObject);
     }
-
-
 
 }

@@ -1,6 +1,7 @@
 package factories;
 
-import utils.InputHandler;
+import core.InputHandler;
+import models.Animal;
 import utils.Messages;
 
 public class AnimalFactory implements IObjectFactory<Animal>{

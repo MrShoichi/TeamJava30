@@ -1,19 +1,21 @@
 package managers;
 
-import factories.IObjectFactory;
+import core.InputHandler;
 import randomDataGenerators.IGenerator;
-import utils.Constants;
-import utils.InputHandler;
+import utils.Entities;
 import utils.Messages;
+import utils.UtilFunctions;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ObjectManager<T> {
+public class ObjectManager<T extends Comparable<T>> {
     private final InputHandler inputHandler;
-    public ObjectManager(InputHandler inputValidator) {
+    private final IGenerator<T> generator;
+    public ObjectManager(InputHandler inputValidator, Entities entity) {
         this.inputHandler = inputValidator;
+        generator = UtilFunctions.getObjectGenerator(entity);
     }
 
     public List<T> generateArrayObjects() {
@@ -21,7 +23,6 @@ public class ObjectManager<T> {
         if (size <= 0) {
             throw new IllegalArgumentException(Messages.ERROR_INVALID_ARRAY_SIZE);
         }
-        IGenerator<T> generator = selectGenerator();
         if (generator == null) {
             throw new IllegalArgumentException(Messages.ERROR_INVALID_CHOICE);
         }
@@ -31,13 +32,4 @@ public class ObjectManager<T> {
                 .collect(Collectors.toList());
     }
 
-    private IGenerator<T> selectGenerator() {
-        int choice = inputHandler.safeMenuChoice(Messages.CLASS_SELECTION_MENU, 1, 3);
-        return switch (choice) {
-            case 1 -> new BarrelGenerator();
-            case 2 -> new PersonGenerator();
-            case 3 -> new AnimalGenerator();
-            default -> null;
-        };
-    }
 }

@@ -67,4 +67,13 @@ public class Animal implements Comparable<Animal>{
             return new Animal(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "species='" + species + '\'' +
+                ", eyeColor='" + eyeColor + '\'' +
+                ", hasFur=" + hasFur +
+                '}';
+    }
 }

@@ -6,7 +6,7 @@ import utils.Messages;
 import java.io.IOException;
 import java.util.List;
 
-public class FileManager<T> {
+public class FileManager<T extends Comparable<T>> {
     private final IFileHandler<T> fileHandler;
 
     public FileManager(IFileHandler<T> fileHandler) {

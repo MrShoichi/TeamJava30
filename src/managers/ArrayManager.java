@@ -1,18 +1,17 @@
 package managers;
 
+import core.InputHandler;
 import models.Animal;
-import search.BinarySearch;
+import models.Barrel;
+import models.Person;
 import sorting.EvenOddSort;
 import sorting.NormalSort;
-import utils.InputHandler;
 import utils.Messages;
+import utils.UtilFunctions;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-// Добавил extends Comparable<T>, считаем, что все объекты Comparable - "базово реализуют сортировку по всем полям
-// (не в отдельности, а по порядку)"
 public class ArrayManager<T extends Comparable<T>> {
     private List<T> array;
     private final InputHandler inputValidator;
@@ -41,35 +40,35 @@ public class ArrayManager<T extends Comparable<T>> {
                 throw new IllegalArgumentException("Некорректный выбор сортировки.");
         }
 
-        int attributeChoice = inputValidator.safeMenuChoice(Messages.SORTING_ATTRIBUTE_MENU, 1, 3);
-        Comparator<T> comparator = ComparatorSelector.selectComparator(attributeChoice);
+        //int attributeChoice = inputValidator.safeMenuChoice(Messages.SORTING_ATTRIBUTE_MENU, 1, 3);
+        //Comparator<T> comparator = ComparatorSelector.selectComparator(attributeChoice);
 
-        sortingManager.sort(array, comparator);
-        System.out.println("Отсортированный массив: " + array);
+        sortingManager.sort(array);
+        System.out.println("Отсортированный массив: " + UtilFunctions.getArrayString(array));
     }
 
 
 
     public void searchInArray() throws IllegalArgumentException {
-        if (array.isEmpty()) {
-            throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
-        }
-        int attributeChoice = inputValidator.safeMenuChoice(Messages.SORTING_ATTRIBUTE_MENU, 1, 3);
+//        if (array.isEmpty()) {
+//            throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
+//        }
+//        int attributeChoice = inputValidator.safeMenuChoice(Messages.SORTING_ATTRIBUTE_MENU, 1, 3);
 
-        Comparator<T> comparator = ComparatorSelector.selectComparator(attributeChoice);
-        T target = getKeyForSearch();
-        BinarySearch<T> binarySearch = new BinarySearch<>();
-
-        int index = binarySearch.search(array, target, comparator);
-
-        if (index != -1) {
-            System.out.println("Элемент найден на позиции: " + index);
-        } else {
-            System.out.println("Элемент не найден.");
-        }
+        //Comparator<T> comparator = ComparatorSelector.selectComparator(attributeChoice);
+//        T target = getKeyForSearch();
+//        BinarySearch<T> binarySearch = new BinarySearch<>();
+//
+//        int index = binarySearch.search(array, target, comparator);
+//
+//        if (index != -1) {
+//            System.out.println("Элемент найден на позиции: " + index);
+//        } else {
+//            System.out.println("Элемент не найден.");
+//        }
     }
 
-    private T getKeyForSearch() {
+    private Comparable<?> getKeyForSearch() {
         if (array.isEmpty()) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
         }
@@ -77,14 +76,15 @@ public class ArrayManager<T extends Comparable<T>> {
         T example = array.getFirst();
 
         if (example instanceof Barrel) {
-            double volume = inputValidator.safeDoubleInput(Messages.PROMPT_VOLUME);
-            return (T) new Barrel.Builder().setVolume(volume).build();
+            int volume = inputValidator.safeIntInput(Messages.PROMPT_VOLUME);
+            return new Barrel.Builder().setVolume(volume).build();
         } else if (example instanceof Person) {
             int age = inputValidator.safeIntInput(Messages.PROMPT_AGE);
-            return (T) new Person.Builder().setAge(age).build();
-        } else if (example instanceof Animal) {
+            return new Person.Builder().setAge(age).build();
+        } else
+        if (example instanceof Animal) {
             String species = inputValidator.safeStringInput(Messages.PROMPT_SPECIES);
-            return (T) new Animal.Builder().setSpecies(species).build();
+            return new Animal.Builder().setSpecies(species).build();
         } else {
             throw new IllegalArgumentException("Неизвестный тип объектов для поиска.");
         }

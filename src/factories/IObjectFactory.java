@@ -1,6 +1,6 @@
 package factories;
 
-import utils.InputHandler;
+import core.InputHandler;
 
 public interface IObjectFactory<T> {
     T create(InputHandler inputHandler);
