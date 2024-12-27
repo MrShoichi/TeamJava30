@@ -17,4 +17,12 @@ public class AnimalFactory implements IObjectFactory<Animal>{
                 .setHasFur(hasFur)
                 .build();
     }
+
+    @Override
+    public Animal createFromRowParts(String[] parts) {
+        String species = parts[1].trim();
+        String eyeColor = parts[2].trim();
+        boolean hasFur = Boolean.parseBoolean(parts[3].trim());
+        return new Animal.Builder().setSpecies(species).setEyeColor(eyeColor).setHasFur(hasFur).build();
+    }
 }

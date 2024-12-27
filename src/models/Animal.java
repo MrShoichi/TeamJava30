@@ -70,10 +70,9 @@ public class Animal implements Comparable<Animal>{
 
     @Override
     public String toString() {
-        return "Animal{" +
-                "species='" + species + '\'' +
-                ", eyeColor='" + eyeColor + '\'' +
-                ", hasFur=" + hasFur +
-                '}';
+        return "Animal;" +
+                species + ';' +
+                eyeColor + ';' +
+                hasFur;
     }
 }

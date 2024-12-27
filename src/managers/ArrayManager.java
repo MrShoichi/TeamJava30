@@ -4,6 +4,7 @@ import core.InputHandler;
 import models.Animal;
 import models.Barrel;
 import models.Person;
+import search.BinarySearch;
 import sorting.EvenOddSort;
 import sorting.NormalSort;
 import utils.Messages;
@@ -29,7 +30,6 @@ public class ArrayManager<T extends Comparable<T>> {
 
         SortingManager<T> sortingManager = new SortingManager<>();
         switch (sortChoice) {
-            // TODO: Enum для режимов, чтобы не путаться (но не обязательно)
             case 1:
                 sortingManager.setStrategy(new NormalSort<T>());
                 break;
@@ -40,56 +40,27 @@ public class ArrayManager<T extends Comparable<T>> {
                 throw new IllegalArgumentException("Некорректный выбор сортировки.");
         }
 
-        //int attributeChoice = inputValidator.safeMenuChoice(Messages.SORTING_ATTRIBUTE_MENU, 1, 3);
-        //Comparator<T> comparator = ComparatorSelector.selectComparator(attributeChoice);
-
         sortingManager.sort(array);
         System.out.println("Отсортированный массив: " + UtilFunctions.getArrayString(array));
     }
 
 
 
-    public void searchInArray() throws IllegalArgumentException {
-//        if (array.isEmpty()) {
-//            throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
-//        }
-//        int attributeChoice = inputValidator.safeMenuChoice(Messages.SORTING_ATTRIBUTE_MENU, 1, 3);
-
-        //Comparator<T> comparator = ComparatorSelector.selectComparator(attributeChoice);
-//        T target = getKeyForSearch();
-//        BinarySearch<T> binarySearch = new BinarySearch<>();
-//
-//        int index = binarySearch.search(array, target, comparator);
-//
-//        if (index != -1) {
-//            System.out.println("Элемент найден на позиции: " + index);
-//        } else {
-//            System.out.println("Элемент не найден.");
-//        }
-    }
-
-    private Comparable<?> getKeyForSearch() {
+    public void searchInArray(T target) throws IllegalArgumentException {
         if (array.isEmpty()) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
         }
-        System.out.println(Messages.PROMPT_ELEMENT_SEARCH);
-        T example = array.getFirst();
 
-        if (example instanceof Barrel) {
-            int volume = inputValidator.safeIntInput(Messages.PROMPT_VOLUME);
-            return new Barrel.Builder().setVolume(volume).build();
-        } else if (example instanceof Person) {
-            int age = inputValidator.safeIntInput(Messages.PROMPT_AGE);
-            return new Person.Builder().setAge(age).build();
-        } else
-        if (example instanceof Animal) {
-            String species = inputValidator.safeStringInput(Messages.PROMPT_SPECIES);
-            return new Animal.Builder().setSpecies(species).build();
+        BinarySearch<T> binarySearch = new BinarySearch<>();
+
+        int index = binarySearch.search(array, target);
+
+        if (index != -1) {
+            System.out.println("Элемент найден на позиции: " + index);
         } else {
-            throw new IllegalArgumentException("Неизвестный тип объектов для поиска.");
+            System.out.println("Элемент не найден.");
         }
     }
-
 
 
     public void addInstance(T newObject) {

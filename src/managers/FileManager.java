@@ -14,7 +14,7 @@ public class FileManager<T extends Comparable<T>> {
     }
 
     public void saveArrayToFile(List<T> array) throws IOException {
-        if (fileHandler == null || fileHandler.readFile().isEmpty()) {
+        if (fileHandler == null || array.isEmpty()) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
         }
 

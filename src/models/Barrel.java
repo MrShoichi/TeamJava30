@@ -68,10 +68,9 @@ public class Barrel implements Comparable<Barrel>, SortableByNumber {
 
     @Override
     public String toString() {
-        return "Barrel{" +
-                "inMaterial='" + inMaterial + '\'' +
-                ", material='" + material + '\'' +
-                ", volume=" + volume +
-                '}';
+        return "Barrel;" +
+                inMaterial + ';' +
+                material + ';' +
+                volume;
     }
 }

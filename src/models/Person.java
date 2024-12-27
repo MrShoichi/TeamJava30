@@ -66,10 +66,9 @@ public class Person implements Comparable<Person>, SortableByNumber {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "gender='" + gender + '\'' +
-                ", age=" + age +
-                ", fullName='" + fullName + '\'' +
-                '}';
+        return "Person;" +
+                gender + ';' +
+                age + ';' +
+                fullName + ';';
     }
 }

@@ -17,4 +17,14 @@ public class BarrelFactory implements IObjectFactory<Barrel> {
                 .setMaterial(material)
                 .build();
     }
+
+    @Override
+    public Barrel createFromRowParts(String[] parts) {
+        String storedMaterial = parts[1].trim();
+        String material = parts[2].trim();
+        int volume = Integer.parseInt(parts[3].trim());
+
+        return new Barrel.Builder().setVolume(volume)
+                .setInMaterial(storedMaterial).setMaterial(material).build();
+    }
 }

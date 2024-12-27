@@ -1,17 +1,19 @@
 package core;
 
 import factories.IObjectFactory;
+import io.FileHandler;
 import managers.ArrayManager;
 import managers.FileManager;
 import managers.ObjectManager;
 import utils.Entities;
 import utils.Messages;
 import utils.UtilFunctions;
+import utils.Validator;
 
 public class MenuHandler<T extends Comparable<T>> {
     private final InputHandler inputValidator;
     private final ObjectManager<T> objectManager;
-    private final FileManager<T> fileManager = null;
+    private final FileManager<T> fileManager;
     private final ArrayManager<T> arrayManager;
     private final IObjectFactory<T> objectFactory;
 
@@ -19,8 +21,11 @@ public class MenuHandler<T extends Comparable<T>> {
         this.inputValidator = new InputHandler();
         this.objectManager = new ObjectManager<>(inputValidator, entity);
         this.arrayManager = new ArrayManager<>(inputValidator);
-        //this.fileManager = new FileManager<>(new FileHandler());
         this.objectFactory = UtilFunctions.getObjectFactory(entity);
+        this.fileManager = new FileManager<>(new FileHandler<T>("src/resources/barrels.csv",
+                new Validator(),
+                objectFactory));
+
     }
 
     public void runMenu() {
@@ -38,7 +43,7 @@ public class MenuHandler<T extends Comparable<T>> {
                         arrayManager.sortArray();
                         break;
                     case 4:
-                        arrayManager.searchInArray();
+                        arrayManager.searchInArray(objectFactory.create(inputValidator));
                         break;
                     case 5:
                         fileManager.saveArrayToFile(arrayManager.getArray());
