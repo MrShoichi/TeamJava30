@@ -1,4 +1,4 @@
-package TeamJava30.src.utils;
+package utils;
 
 import java.util.Random;
 

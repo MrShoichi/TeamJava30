@@ -1,21 +1,55 @@
-package TeamJava30.src.utils;
+package utils;
 
-import java.util.Arrays;
+import java.util.List;
 
-public class Validator {
-    public static boolean validateArray(String[] data) {
-        return Arrays.stream(data).allMatch(utils.Validator::isNumeric);
-    }
+public class Validator implements utils.IValidator {
 
-    private static boolean isNumeric(String str) {
-        if (str == null || str.isEmpty()) {
+    @Override
+    public boolean validateRow(String row) {
+        if (row == null || row.isEmpty() || row.split(";").length != 3) {
             return false;
         }
+
+        String[] parts = row.split(";");
+        String name = parts[0].trim();
+        String gender = parts[1].trim();
+        String ageStr = parts[2].trim();
+
+        if (name.isEmpty()) {
+            return false;
+        }
+
+        if (!gender.equalsIgnoreCase("Мужской") && !gender.equalsIgnoreCase("Женский")) {
+            return false;
+        }
+
+
         try {
-            Integer.parseInt(str);
-            return true;
+            int age = Integer.parseInt(ageStr);
+            if (age <= 0) {
+                return false;
+            }
         } catch (NumberFormatException e) {
             return false;
         }
+
+        return true;
+    }
+
+
+    @Override
+    public boolean validateFileFormat(List<String> rows) {
+        if (rows == null || rows.isEmpty()) {
+            return false;
+        }
+
+        for (String row : rows) {
+            if (!validateRow(row)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
+
+
