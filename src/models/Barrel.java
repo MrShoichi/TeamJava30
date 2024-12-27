@@ -1,6 +1,8 @@
 package models;
 
-public class Barrel implements Comparable<Barrel>, SortableByNumber {
+import java.io.Serializable;
+
+public class Barrel implements Comparable<Barrel>, SortableByNumber, Serializable {
     private final String inMaterial;
     private final String material;
     private final int volume;

@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Класс Animal с характеристиками: вид, цвет глаз и наличие шерсти.
  * Поддерживает сортировку по естественному порядку:
@@ -9,7 +11,7 @@ package models;
  *
  * Объекты класса создаются с использованием паттерна Builder.
  */
-public class Animal implements Comparable<Animal>{
+public class Animal implements Comparable<Animal>, Serializable {
     private final String species;
     private final String eyeColor;
     private final boolean hasFur;

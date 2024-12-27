@@ -1,6 +1,8 @@
 package models;
 
-public class Person implements Comparable<Person>, SortableByNumber {
+import java.io.Serializable;
+
+public class Person implements Comparable<Person>, SortableByNumber, Serializable {
     private final String gender;
     private final int age;
     private final String fullName;
