@@ -22,7 +22,7 @@ public class MenuHandler<T extends Comparable<T>> {
         this.objectManager = new ObjectManager<>(inputValidator, entity);
         this.arrayManager = new ArrayManager<>(inputValidator);
         this.objectFactory = UtilFunctions.getObjectFactory(entity);
-        this.fileManager = new FileManager<>(new FileHandler<T>("src/resources/barrels.csv",
+        this.fileManager = new FileManager<>(new FileHandler<T>("src/resources/items.csv",
                 new Validator(),
                 objectFactory));
 

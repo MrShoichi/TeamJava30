@@ -57,7 +57,12 @@ public class FileHandler<T extends Comparable<T>> implements IFileHandler<T> {
         return instance.toString();
     }
 
-    private T createInstanceFromCSV(String row) {
-        return factory.createFromRowParts(row.split(";"));
+    private T createInstanceFromCSV(String row) throws InvalidClassException {
+        try {
+            String[] rowParts = row.split(";");
+            return factory.createFromRowParts(rowParts);
+        } catch (Exception e) {
+            throw new InvalidClassException("");
+        }
     }
 }

@@ -50,6 +50,7 @@ public class ArrayManager<T extends Comparable<T>> {
         if (array.isEmpty()) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
         }
+        sortArray();
 
         BinarySearch<T> binarySearch = new BinarySearch<>();
 
